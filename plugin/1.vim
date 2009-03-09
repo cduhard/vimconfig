@@ -4,3 +4,4 @@ set nocompatible
 set nowrap 
 set autoindent
 set expandtab
+set smarttab
