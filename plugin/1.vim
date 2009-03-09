@@ -1,4 +1,5 @@
 set nocompatible
+set guifont=Inconsolata:h12
 
 " General Vim behaviour.
 set nowrap 
