@@ -8,3 +8,5 @@ set nobackup nowritebackup "turn off backup file creation
 " GUI Options
 set guifont=Inconsolata:h12
 set guioptions-=T
+
+syntax on "syntax highlighting
