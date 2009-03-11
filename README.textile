@@ -1,0 +1,30 @@
+h1. Introduction
+
+Many people copy and paste configuration files for Vim without really understanding what the options mean.
+This is my attempt at assembling my own Vim configuration by stealing as much as I can from other people
+but trying to add each new thing as a separate git commit. To see the pattern of my madness you can 
+view the git log and you could also cherry pick the features you'd like to make your own config. 
+
+h1. Setup
+
+First backup any existing Vim configuration you might have:
+
+<pre><code>
+mv ~/.vim ~/vim_old 
+mv ~/.vimrc ~/vimrc_old
+mv ~/.gvimrc ~/gvimrc_old
+
+git clone git://github.com/marcjeanson/vimconfig.git ~/.vim
+</code></pre>
+
+Note, I don't care about Windows sorry :)
+
+h1. Credits
+
+I've lifted some of the options from old config files I had as well as a few projects on the net.
+For some other resources checkout:
+
+* http://github.com/scrooloose/vimfiles/tree/master
+* http://github.com/akitaonrails/vimfiles/tree/master  (especially if you are a Ruby on Rails Developer)
+
+This project was sparked up after reading "Akita's blog post:":http://www.akitaonrails.com/2009/1/4/rails-on-vim-in-english
