@@ -10,6 +10,7 @@ set laststatus=2                            " always show the status line
 set incsearch ignorecase smartcase hlsearch " search options
 set hidden
 set history=1000                            " remember the last 1000 command instead of the default 20
+set scrolloff=4                             " scroll by 4 lines instead of a single line
 filetype plugin indent on                   " Enable filetype-specific indenting and plugins
 
 syntax on                                   " syntax highlighting
