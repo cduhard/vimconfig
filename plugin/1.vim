@@ -17,7 +17,11 @@ syntax on                                   " syntax highlighting
 
 " Leader mappings
 let mapleader = ","                         " The leader character is like a vim modifier key
-map <leader>t :FuzzyFinderTextMate<CR>      " Start up the fuzzyfindertextmate by typing: ,t
 
 set wildmenu                                " Make the command/file menu completion show more information
 set wildmode=list:longest                   " Make the completions window larger
+
+" Fuzzy Finder Settings
+let g:fuzzy_ignore = "*.log"
+let g:fuzzy_matching_limit = 70
+map <leader>t :FuzzyFinderTextMate<CR>      " Start up the fuzzyfindertextmate by typing: ,t
