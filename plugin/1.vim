@@ -24,4 +24,4 @@ set wildmode=list:longest                   " Make the completions window larger
 " Fuzzy Finder Settings
 let g:fuzzy_ignore = "*.log"
 let g:fuzzy_matching_limit = 70
-map <leader>t :FuzzyFinderTextMate<CR>      " Start up the fuzzyfindertextmate by typing: ,t
+map <leader>t :FuzzyFinderTextMate<CR>
