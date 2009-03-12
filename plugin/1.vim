@@ -9,6 +9,7 @@ set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n
 set laststatus=2                            " always show the status line
 set incsearch ignorecase smartcase hlsearch " search options
 set hidden
+set history=1000                            " remember the last 1000 command instead of the default 20
 filetype plugin indent on                   " Enable filetype-specific indenting and plugins
 
 syntax on                                   " syntax highlighting
