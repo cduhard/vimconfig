@@ -26,5 +26,6 @@ let g:fuzzy_ignore = "*.log"
 let g:fuzzy_matching_limit = 70
 map <leader>f :FuzzyFinderTextMate<CR>
 map <leader>b :FuzzyFinderBuffer<CR>
+map <leader>r :ruby finder.rescan!<CR>:FuzzyFinderRemoveCache<CR>
 
 map <leader>n :NERDTreeToggle<CR>
