@@ -28,4 +28,5 @@ map <leader>f :FuzzyFinderTextMate<CR>
 map <leader>b :FuzzyFinderBuffer<CR>
 map <leader>r :ruby finder.rescan!<CR>:FuzzyFinderRemoveCache<CR>
 
+map <leader>a :Ack<SPACE>
 map <leader>n :NERDTreeToggle<CR>
