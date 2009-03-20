@@ -11,6 +11,7 @@ set incsearch ignorecase smartcase hlsearch " search options
 set hidden
 set history=1000                            " remember the last 1000 command instead of the default 20
 set scrolloff=3                             " scroll by 3 lines instead of a single line
+set cursorline                              " highlight the current line
 filetype plugin indent on                   " Enable filetype-specific indenting and plugins
 
 syntax on                                   " syntax highlighting
