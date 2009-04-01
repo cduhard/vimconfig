@@ -11,6 +11,7 @@ set incsearch ignorecase smartcase hlsearch " search options
 set hidden
 set history=1000                            " remember the last 1000 command instead of the default 20
 set cursorline                              " highlight the current line
+set iskeyword-=_                            " make underscores not part of a word
 filetype plugin indent on                   " Enable filetype-specific indenting and plugins
 
 syntax on                                   " syntax highlighting
