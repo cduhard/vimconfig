@@ -1,6 +1,8 @@
 " GUI Options
 set guifont=Inconsolata:h15
 set guioptions-=T
+set number
+imap <C-l> <Space>=><Space>
 
 if has("gui_running")
   "tell the term has 256 colors
