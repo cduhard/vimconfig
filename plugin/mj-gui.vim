@@ -1,4 +1,4 @@
-" GUI Options
+"  GUI Options
 set guifont=Inconsolata:h15
 set guioptions-=T
 set number
