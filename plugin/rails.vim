@@ -320,3 +320,14 @@ augroup END
 
 " }}}1
 " vim:set sw=2 sts=2:
+
+function! RunSpec(command)
+  if a:command == ''
+    let dir = 'spec'
+  else
+    let dir = a:command
+  endif
+  cexpr system("spec -r spec/vim_formatter.rb -f Spec::Runner::Formatter::VimFormatter " . dir)"a:command)
+  cw
+endfunction
+
