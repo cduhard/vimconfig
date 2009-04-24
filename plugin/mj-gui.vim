@@ -8,8 +8,8 @@ if has("gui_running")
   "tell the term has 256 colors
   set t_Co=256
   colorscheme desertEx
-  set lines=62
-  set columns=200
+  set lines=45
+  set columns=150
 else
   let g:CSApprox_loaded = 0
   colorscheme desert

@@ -31,3 +31,5 @@ map <leader>r :ruby finder.rescan!<CR>:FuzzyFinderRemoveCache<CR>
 map <leader>a :Ack<SPACE>
 map <leader>n :NERDTreeToggle<CR>
 map <leader>x :BD<CR>
+map <S-Enter> O<Esc>j
+map <CR> o<Esc>k
