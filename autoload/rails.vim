@@ -421,7 +421,7 @@ function! rails#singularize(word)
   let word = s:sub(word,'ves$','fs')
   let word = s:sub(word,'ss%(es)=$','sss')
   let word = s:sub(word,'s$','')
-  let word = s:sub(word,'%(tatus|lias)\zse$','')
+  let word = s:sub(word,'%([nrt]ch|tatus|lias)\zse$','')
   let word = s:sub(word,'%(nd|rt)\zsice$','ex')
   return word
 endfunction
@@ -975,9 +975,11 @@ let s:efm=s:efm
 
 let s:efm_backtrace='%D(in\ %f),'
       \.'%\\s%#from\ %f:%l:%m,'
+      \.'%\\s%#from\ %f:%l:,'
       \.'%\\s#{RAILS_ROOT}/%f:%l:\ %#%m,'
       \.'%\\s%#[%f:%l:\ %#%m,'
-      \.'%\\s%#%f:%l:\ %#%m'
+      \.'%\\s%#%f:%l:\ %#%m,'
+      \.'%\\s%#%f:%l:'
 
 function! s:makewithruby(arg,bang,...)
   if &efm == s:efm
@@ -986,9 +988,12 @@ function! s:makewithruby(arg,bang,...)
     endif
   endif
   let old_make = &makeprg
-  let &l:makeprg = rails#app().ruby_shell_command(a:arg)
-  exe 'make'.(a:bang ? '!' : '')
-  let &l:makeprg = old_make
+  try
+    let &l:makeprg = rails#app().ruby_shell_command(a:arg)
+    exe 'make'.(a:bang ? '!' : '')
+  finally
+    let &l:makeprg = old_make
+  endtry
 endfunction
 
 function! s:Rake(bang,lnum,arg)
@@ -1746,12 +1751,15 @@ function! s:RailsFind()
     let res = s:findview(contr.'/'.view)
     if res != ""|return res|endif
   endif
-  let isf_keep = &isfname
-  set isfname=@,48-57,/,-,_,: ",\",'
-  " TODO: grab visual selection in visual mode
-  let cfile = expand("<cfile>")
+  let old_isfname = &isfname
+  try
+    set isfname=@,48-57,/,-,_,: ",\",'
+    " TODO: grab visual selection in visual mode
+    let cfile = expand("<cfile>")
+  finally
+    let &isfname = old_isfname
+  endtry
   let res = s:RailsIncludefind(cfile,1)
-  let &isfname = isf_keep
   return res
 endfunction
 
@@ -3005,10 +3013,13 @@ function! s:Extract(bang,...) range abort
   silent exe range."yank"
   let partial = @@
   let @@ = buf
-  let ai = &ai
-  let &ai = 0
-  silent exe "norm! :".first.",".last."change\<CR>".fspaces.renderstr."\<CR>.\<CR>"
-  let &ai = ai
+  let old_ai = &ai
+  try
+    let &ai = 0
+    silent exe "norm! :".first.",".last."change\<CR>".fspaces.renderstr."\<CR>.\<CR>"
+  finally
+    let &ai = old_ai
+  endtry
   if renderstr =~ '<%'
     norm ^6w
   else
@@ -3802,6 +3813,7 @@ function! s:app_dbext_settings(environment) dict
         let dict['dbname'] = self.path(dict['dbname'])
       endif
       let dict['profile'] = ''
+      let dict['srvname'] = s:extractdbvar(out,'host')
       let dict['host'] = s:extractdbvar(out,'host')
       let dict['port'] = s:extractdbvar(out,'port')
       let dict['dsnname'] = s:extractdbvar(out,'dsn')
@@ -3837,7 +3849,7 @@ function! s:BufDatabase(...)
     return
   endif
   let dict = self.dbext_settings(env)
-  for key in ['type', 'profile', 'bin', 'user', 'passwd', 'dbname', 'host', 'port', 'dsnname', 'extra', 'integratedlogin']
+  for key in ['type', 'profile', 'bin', 'user', 'passwd', 'dbname', 'srvname', 'host', 'port', 'dsnname', 'extra', 'integratedlogin']
     let b:dbext_{key} = get(dict,key,'')
   endfor
   if b:dbext_type == 'PGSQL'
@@ -4265,8 +4277,6 @@ endfunction
 call s:add_methods('app',['source_callback'])
 
 function! RailsBufInit(path)
-  let cpo_save = &cpo
-  set cpo&vim
   let firsttime = !(exists("b:rails_root") && b:rails_root == a:path)
   let b:rails_root = a:path
   if !has_key(s:apps,a:path)
@@ -4360,7 +4370,6 @@ function! RailsBufInit(path)
   call app.source_callback("config/rails.vim")
   call s:BufModelines()
   call s:BufMappings()
-  let &cpo = cpo_save
   return b:rails_root
 endfunction
 
@@ -4384,7 +4393,7 @@ function! s:SetBasePath()
   endif
   let path += ['app/*', 'vendor', 'vendor/plugins/*/lib', 'vendor/plugins/*/test', 'vendor/rails/*/lib', 'vendor/rails/*/test']
   call map(path,'rails#app().path(v:val)')
-  let &l:path = s:pathjoin('.',rails#app().path(),path,old_path)
+  let &l:path = s:pathjoin('.',[rails#app().path()],path,old_path)
 endfunction
 
 function! s:BufSettings()
