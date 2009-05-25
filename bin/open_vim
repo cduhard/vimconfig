@@ -1,0 +1,6 @@
+#!/usr/bin/ruby  
+regex = /(.+)\?(\d+)/  
+ARGV[0] =~ regex  
+system("mvim --remote-silent +#{$2} #{$1}")  
+
+
